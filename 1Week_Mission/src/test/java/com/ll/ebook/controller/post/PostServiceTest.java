@@ -1,6 +1,7 @@
 package com.ll.ebook.controller.post;
 
 import com.ll.ebook.post.PostService;
+import com.ll.ebook.post.model.entity.PostEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,22 @@ public class PostServiceTest {
 
         //then
         assertThat(postService.findAll().get(0).getId()).isEqualTo(1l);
+
+    }
+
+    @Test
+    @DisplayName("글 작성, 수정 후 확인")
+    void modify() throws Exception {
+        // WHEN
+        postService.write("user", "subject", "content", "keywords");
+
+        postService.modify(1l, "new subject", "new content", "new keywords");
+        
+        //then
+        PostEntity postEntity = postService.findById(1l);
+
+        assertThat(postEntity.getSubject()).isEqualTo("new subject");
+        assertThat(postEntity.getContent()).isEqualTo("new content");
 
     }
 }
