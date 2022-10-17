@@ -27,7 +27,7 @@ public class PostService {
     public void write(String username, String subject, String content, String keywords) {
 
         PostEntity postEntity = PostEntity.builder()
-                .authorId(1l)
+//                .authorId(1l)
                 .content(content)
                 .subject(subject)
                 .build();

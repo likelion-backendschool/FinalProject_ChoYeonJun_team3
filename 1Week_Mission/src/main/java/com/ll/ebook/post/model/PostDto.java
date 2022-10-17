@@ -1,6 +1,7 @@
 package com.ll.ebook.post.model;
 
 import com.ll.ebook.post.model.entity.PostEntity;
+import com.ll.ebook.user.model.UserEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,9 +16,9 @@ public class PostDto {
 
     private LocalDateTime createdAt;
 
-    private LocalDateTime updatedAt;
+    private LocalDateTime modifiedAt;
 
-    private Long authorId;
+    private UserEntity author;
 
     private String subject;
 
@@ -39,8 +40,8 @@ public class PostDto {
         return PostDto.builder()
                 .id(entity.getId())
                 .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
-                .authorId(entity.getAuthorId())
+                .modifiedAt(entity.getModifiedAt())
+                .author(entity.getAuthor())
                 .subject(entity.getSubject())
                 .content(entity.getContent())
                 .contentHtml(entity.getContentHtml())
