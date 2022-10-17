@@ -1,5 +1,6 @@
-package com.ll.ebook.post.model;
+package com.ll.ebook.post.model.entity;
 
+import com.ll.ebook.post.model.PostDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,6 +48,7 @@ public class PostEntity {
      * name : contentHtml
      * 토스트 에디터의 렌더링 결과, Html 저장
      */
+    @Column(name="content_html")
     private String contentHtml;
 
     public static PostEntity toEntity(PostDto dto){
