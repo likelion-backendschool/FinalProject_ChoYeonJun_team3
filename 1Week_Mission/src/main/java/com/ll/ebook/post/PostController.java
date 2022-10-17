@@ -60,7 +60,7 @@ public class PostController {
      * - 글의 제목, 내용, 해시태그를 모두 출력
      * - 글의 내용은 마크다운 해석이 되어야 한다.
      */
-    @GetMapping()
+    @GetMapping("/")
     public void getDetail(@RequestParam Long id){
 
     }
@@ -72,8 +72,8 @@ public class PostController {
      * - 글이 삭제되면 글 리스트로 리다이렉트 한다.
      * - 삭제버튼 눌렀을 때 confirm 창으로 삭제여부를 한 번 더 물어본다.
      */
-    @GetMapping
-    public void delete(){
+    @GetMapping("/{id}/delete")
+    public void delete(@PathVariable Long id){
 
     }
 
