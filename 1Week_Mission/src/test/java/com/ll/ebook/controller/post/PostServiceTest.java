@@ -1,5 +1,6 @@
 package com.ll.ebook.controller.post;
 
+import com.ll.ebook.post.DataNotFoundException;
 import com.ll.ebook.post.PostService;
 import com.ll.ebook.post.model.entity.PostEntity;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -52,4 +55,21 @@ public class PostServiceTest {
         assertThat(postEntity.getContent()).isEqualTo("new content");
 
     }
+    @Test
+    @DisplayName("글 작성, 수정 후 확인")
+    void delete() throws Exception {
+        // when
+        postService.delete(1l);
+        Exception exception = assertThrows(DataNotFoundException.class, () -> {
+            postService.findById(1l);
+        });
+
+        String expectedMessage = "no %d post not found,".formatted(1l);
+        String actualMessage = exception.getMessage();
+        // then
+        assertTrue(actualMessage.contains(expectedMessage));
+
+
+    }
+
 }
