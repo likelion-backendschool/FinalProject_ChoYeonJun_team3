@@ -1,5 +1,6 @@
 package com.ll.ebook.post.model.entity;
 
+import com.ll.ebook.base.entity.BaseEntity;
 import com.ll.ebook.post.model.PostDto;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,19 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="post_id")
-    private Long id;
-
-    @CreatedDate
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
+public class PostEntity extends BaseEntity {
 
     @Column(name="author_id")
     private Long authorId;
