@@ -17,6 +17,13 @@ public class PostService {
         return entities.stream().map(PostDto::toDto).collect(Collectors.toList());
     }
 
+    /**
+     * TODO 받아온 username으로 userId를 가져와 setAuthorId(userId) 하도록 수정 필요
+     * @param username
+     * @param subject
+     * @param content
+     * @param keywords
+     */
     public void write(String username, String subject, String content, String keywords) {
 
         PostEntity postEntity = PostEntity.builder()
