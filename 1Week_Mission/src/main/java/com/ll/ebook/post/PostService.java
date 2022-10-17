@@ -40,6 +40,11 @@ public class PostService {
         postEntity.setSubject(subject);
         postEntity.setContent(content);
     }
+
+    public void delete(Long id){
+        postRepository.deleteById(id);
+    }
+
     public List<PostEntity> findAll(){
         return postRepository.findAll();
     }

@@ -76,7 +76,7 @@ public class PostController {
      */
     @GetMapping("/{id}/delete")
     public void delete(@PathVariable Long id){
-
+        postService.delete(id);
     }
 
 }
