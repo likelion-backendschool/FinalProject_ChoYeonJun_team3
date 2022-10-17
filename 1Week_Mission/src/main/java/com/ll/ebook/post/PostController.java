@@ -1,15 +1,16 @@
 package com.ll.ebook.post;
 
+import com.ll.ebook.post.form.PostWriteForm;
 import com.ll.ebook.post.model.PostDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
@@ -23,13 +24,13 @@ public class PostController {
      * - 마크다운 원문과 렌더링 결과(HTML)까지 같이 저장한다.
      */
     @GetMapping("/write")
-    public void getWrite(){
+    public void getWrite(PostWriteForm postWriteForm){
 
     }
 
     @PostMapping("/write")
-    public void write(){
-
+    public void write(Principal principal, Model model, @Valid PostWriteForm postWriteForm, BindingResult bindingResult){
+        postService.write(principal.getName(), postWriteForm.getSubject(), postWriteForm.getContent(), postWriteForm.getKeywords());
     }
 
     @GetMapping("/modify")
