@@ -35,7 +35,16 @@ public class PostService {
         postRepository.save(postEntity);
     }
 
+    public void modify(Long id, String subject, String content, String postKeywordsContents){
+        PostEntity postEntity = findById(id);
+        postEntity.setSubject(subject);
+        postEntity.setContent(content);
+    }
     public List<PostEntity> findAll(){
         return postRepository.findAll();
+    }
+
+    public PostEntity findById(Long id){
+        return postRepository.findById(id) .orElseThrow(() -> new DataNotFoundException("no %d post not found,".formatted(id)));
     }
 }

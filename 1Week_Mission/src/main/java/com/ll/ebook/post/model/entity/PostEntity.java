@@ -1,10 +1,7 @@
 package com.ll.ebook.post.model.entity;
 
 import com.ll.ebook.post.model.PostDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -35,12 +32,14 @@ public class PostEntity {
     @Column(name="author_id")
     private Long authorId;
 
+    @Setter
     private String subject;
 
     /**
      * name : content
      * 마크다운 텍스트 저장
      */
+    @Setter
     private String content;
 
 
@@ -48,6 +47,7 @@ public class PostEntity {
      * name : contentHtml
      * 토스트 에디터의 렌더링 결과, Html 저장
      */
+    @Setter
     @Column(name="content_html")
     private String contentHtml;
 

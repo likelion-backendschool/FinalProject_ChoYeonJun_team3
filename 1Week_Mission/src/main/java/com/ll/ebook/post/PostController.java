@@ -1,5 +1,6 @@
 package com.ll.ebook.post;
 
+import com.ll.ebook.post.form.PostModifyForm;
 import com.ll.ebook.post.form.PostWriteForm;
 import com.ll.ebook.post.model.PostDto;
 import lombok.RequiredArgsConstructor;
@@ -33,14 +34,14 @@ public class PostController {
         postService.write(principal.getName(), postWriteForm.getSubject(), postWriteForm.getContent(), postWriteForm.getKeywords());
     }
 
-    @GetMapping("/modify")
-    public void getModify(){
+    @GetMapping("/{id}/modify")
+    public void getModify(@PathVariable Long id){
 
     }
 
-    @PostMapping("/modify")
-    public void modify(){
-
+    @PostMapping("/{id}/modify")
+    public void modify(@PathVariable Long id, PostModifyForm postModifyForm){
+        postService.modify(id, postModifyForm.getSubject(), postModifyForm.getContent(), postModifyForm.getPostKeywordContents());
     }
 
     /**
