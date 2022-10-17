@@ -1,16 +1,22 @@
 package com.ll.ebook.post;
 
+import com.ll.ebook.post.model.PostDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/post")
 public class PostController {
+
+    private final PostService postService;
 
     /**
      * 글 리스트
@@ -18,8 +24,11 @@ public class PostController {
      * - 해시태그를 클릭하면 내가 작성한 글 중 해당 해시태그와 관련된 글들을 볼 수 있다.
      */
     @GetMapping("/list")
-    public void getList(){
+    public void getList(Model model){
 
+        List<PostDto> dtos = postService.getList();
+
+        model.addAttribute("posts", dtos);
     }
 
     /**
