@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
@@ -28,20 +29,15 @@ public class PostEntity extends BaseEntity {
      * @Column(name="author_id")
      */
     @ManyToOne
-    @JoinColumn(name="author_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name="author_id")
     private UserEntity author;
 
-    @Column(name="author_id")
-    private Long authorId;
-
-    @Setter
     private String subject;
 
     /**
      * name : content
      * 마크다운 텍스트 저장
      */
-    @Setter
     private String content;
 
 

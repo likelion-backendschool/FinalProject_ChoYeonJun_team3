@@ -18,11 +18,15 @@ import javax.persistence.*;
 @Table(name="hashtags")
 public class HashTagEntity extends BaseEntity {
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="authorId", referencedColumnName = "author_id", insertable = false, updatable = false)
+    @ManyToOne
     @JoinColumn(name="postId", referencedColumnName = "id", insertable = false, updatable = false )
     @ToString.Exclude
     private PostEntity postEntity;
+
+//    @ManyToOne
+//    @JoinColumn(name="authorId", referencedColumnName = "author_id", insertable = false, updatable = false)
+//    @ToString.Exclude
+//    private PostEntity authorId;
 
     @ManyToOne
     @ToString.Exclude

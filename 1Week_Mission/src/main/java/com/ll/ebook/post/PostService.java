@@ -24,21 +24,29 @@ public class PostService {
      * @param content
      * @param keywords
      */
-    public void write(String username, String subject, String content, String keywords) {
+    public PostEntity write(String username, String subject, String content, String keywords) {
 
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new DataNotFoundException("no %s user not found,".formatted(username)));
         PostEntity postEntity = PostEntity.builder()
-//                .authorId(1l)
+                .author(userEntity)
                 .content(content)
                 .subject(subject)
                 .build();
 
         postRepository.save(postEntity);
-    }
 
+
+        return postEntity;
+    }
+    public PostEntity write(String username,  String subject, String content) {
+        return write(username, subject, content, "");
+    }
     public void modify(Long id, String subject, String content, String postKeywordsContents){
         PostEntity postEntity = findById(id);
         postEntity.setSubject(subject);
         postEntity.setContent(content);
+        postRepository.save(postEntity);
+
     }
 
     public void delete(Long id){
