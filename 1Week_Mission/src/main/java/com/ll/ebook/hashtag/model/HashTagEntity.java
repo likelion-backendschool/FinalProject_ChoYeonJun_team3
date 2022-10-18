@@ -19,7 +19,6 @@ import javax.persistence.*;
 public class HashTagEntity extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name="postId", referencedColumnName = "id", insertable = false, updatable = false )
     @ToString.Exclude
     private PostEntity postEntity;
 
