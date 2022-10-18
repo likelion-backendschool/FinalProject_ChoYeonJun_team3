@@ -1,6 +1,7 @@
 package com.ll.ebook.keyword;
 
 import com.ll.ebook.keyword.model.KeywordEntity;
+import com.ll.ebook.post.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,9 @@ public class KeywordService {
         keywordRepository.save(keyword);
 
         return keyword;
+    }
+
+    public KeywordEntity findById(Long id){
+        return keywordRepository.findById(id).orElseThrow(() -> new DataNotFoundException("%d id keyword not found".formatted(id)));
     }
 }
