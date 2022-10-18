@@ -5,6 +5,8 @@ import com.ll.ebook.post.model.entity.PostEntity;
 import com.ll.ebook.keyword.model.KeywordEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -20,6 +22,7 @@ public class HashTagEntity extends BaseEntity {
 
     @ManyToOne
     @ToString.Exclude
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private PostEntity postEntity;
 
 //    @ManyToOne
@@ -29,5 +32,6 @@ public class HashTagEntity extends BaseEntity {
 
     @ManyToOne
     @ToString.Exclude
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private KeywordEntity keywordEntity;
 }
