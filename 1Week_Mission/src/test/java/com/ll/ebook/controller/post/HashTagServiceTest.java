@@ -23,6 +23,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * 해시태그가 존재 하는 글에 대한 테스트 코드
+ *
+ * ddl-auto 설정
+ *   jpa:
+ *     hibernate:
+ *       ddl-auto: create
+ */
 @SpringBootTest
 //@Transactional
 @ActiveProfiles("test")
@@ -39,12 +47,21 @@ public class HashTagServiceTest {
     private final String username = "username";
     private final String keywords = "#개발 #자바";
 
+    /**
+     * 매 테스트마다 사용자 새로 생성 및 글 작성
+     */
     @BeforeEach
     void create(){
         saveUser();
         postService.write(username, "subject", "content", "#개발 #자바");
     }
 
+    /**
+     * 임시 사용자 저장 테스트 코드
+     * post의 author 로 사용하기 위함
+     *
+     * User 작업 들어가면서 수정 예정
+     */
     void saveUser(){
         userRepository.save(UserEntity.builder()
                 .email("abc@gmail.com")

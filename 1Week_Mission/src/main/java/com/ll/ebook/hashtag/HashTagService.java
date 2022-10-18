@@ -36,7 +36,9 @@ public class HashTagService {
                 needToDelete.add(oldHashTag);
             }
         }
-
+        /**
+         * 이미 존재하는 해시태그 중복 피하기 위해 삭제
+         */
         needToDelete.forEach(hashTag -> {
             hashTagRepository.delete(hashTag);
         });

@@ -15,6 +15,9 @@ public class KeywordService {
     public KeywordEntity saveKeyword(String keywordContent) {
         Optional<KeywordEntity> optKeyword = keywordRepository.findByContent(keywordContent);
 
+        /**
+         * 이미 저장된 키워드라면 새로 저장하지 않고 리턴
+         */
         if ( optKeyword.isPresent() ) {
             return optKeyword.get();
         }
