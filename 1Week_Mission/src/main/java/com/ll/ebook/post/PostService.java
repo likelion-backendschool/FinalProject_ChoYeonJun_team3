@@ -1,7 +1,10 @@
 package com.ll.ebook.post;
 
+import com.ll.ebook.hashtag.HashTagService;
 import com.ll.ebook.post.model.PostDto;
 import com.ll.ebook.post.model.entity.PostEntity;
+import com.ll.ebook.user.UserRepository;
+import com.ll.ebook.user.model.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
     private final PostRepository postRepository;
+    private final HashTagService hashTagService;
+    private final UserRepository userRepository;
+
     public List<PostDto> getList() {
         List<PostEntity> entities = postRepository.findAll();
         return entities.stream().map(PostDto::toDto).collect(Collectors.toList());
@@ -35,6 +41,7 @@ public class PostService {
 
         postRepository.save(postEntity);
 
+        hashTagService.applyHashTags(postEntity, keywords);
 
         return postEntity;
     }
@@ -47,6 +54,7 @@ public class PostService {
         postEntity.setContent(content);
         postRepository.save(postEntity);
 
+        hashTagService.applyHashTags(postEntity, postKeywordsContents);
     }
 
     public void delete(Long id){
@@ -59,5 +67,9 @@ public class PostService {
 
     public PostEntity findById(Long id){
         return postRepository.findById(id) .orElseThrow(() -> new DataNotFoundException("no %d post not found,".formatted(id)));
+    }
+
+    public PostEntity findByUserEntity(UserEntity userEntity){
+        return postRepository.findByAuthor(userEntity).orElseThrow(() -> new DataNotFoundException("no %s's post not found,".formatted(userEntity.getUsername())));
     }
 }
