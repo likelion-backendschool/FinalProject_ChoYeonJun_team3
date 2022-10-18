@@ -56,7 +56,7 @@ public class HashTagService {
         }
 
         HashTagEntity hashTag = HashTagEntity.builder()
-//                .postId(postEntity)
+                .postEntity(postEntity)
                 .keywordEntity(keyword)
                 .build();
 
