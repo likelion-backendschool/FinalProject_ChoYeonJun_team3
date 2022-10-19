@@ -85,4 +85,13 @@ public class MemberService {
 
         memberRepository.save(member);
     }
+
+
+    public String findUsernameByEmail(String email) {
+        return findByEmail(email).getUsername();
+    }
+
+    private MemberEntity findByEmail(String email){
+        return memberRepository.findByEmail(email).orElseThrow(() -> new DataNotFoundException("email %s not found".formatted(email)));
+    }
 }
