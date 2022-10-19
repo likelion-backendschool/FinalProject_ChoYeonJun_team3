@@ -3,8 +3,8 @@ package com.ll.ebook.post;
 import com.ll.ebook.hashtag.HashTagService;
 import com.ll.ebook.post.model.PostDto;
 import com.ll.ebook.post.model.entity.PostEntity;
-import com.ll.ebook.user.UserRepository;
-import com.ll.ebook.user.model.UserEntity;
+import com.ll.ebook.member.MemberRepository;
+import com.ll.ebook.member.model.MemberEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final HashTagService hashTagService;
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     public List<PostDto> getList() {
         List<PostEntity> entities = postRepository.findAll();
@@ -32,9 +32,9 @@ public class PostService {
      */
     public PostEntity write(String username, String subject, String content, String keywords) {
 
-        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() -> new DataNotFoundException("no %s user not found,".formatted(username)));
+        MemberEntity memberEntity = memberRepository.findByUsername(username).orElseThrow(() -> new DataNotFoundException("no %s user not found,".formatted(username)));
         PostEntity postEntity = PostEntity.builder()
-                .author(userEntity)
+                .author(memberEntity)
                 .content(content)
                 .subject(subject)
                 .build();
@@ -69,7 +69,7 @@ public class PostService {
         return postRepository.findById(id) .orElseThrow(() -> new DataNotFoundException("no %d post not found,".formatted(id)));
     }
 
-    public PostEntity findByUserEntity(UserEntity userEntity){
-        return postRepository.findByAuthor(userEntity).orElseThrow(() -> new DataNotFoundException("no %s's post not found,".formatted(userEntity.getUsername())));
+    public PostEntity findByUserEntity(MemberEntity memberEntity){
+        return postRepository.findByAuthor(memberEntity).orElseThrow(() -> new DataNotFoundException("no %s's post not found,".formatted(memberEntity.getUsername())));
     }
 }

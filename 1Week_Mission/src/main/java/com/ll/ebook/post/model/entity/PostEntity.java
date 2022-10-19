@@ -2,12 +2,9 @@ package com.ll.ebook.post.model.entity;
 
 import com.ll.ebook.base.entity.BaseEntity;
 import com.ll.ebook.post.model.PostDto;
-import com.ll.ebook.user.model.UserEntity;
+import com.ll.ebook.member.model.MemberEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,7 +27,7 @@ public class PostEntity extends BaseEntity {
      */
     @ManyToOne
     @JoinColumn(name="author_id")
-    private UserEntity author;
+    private MemberEntity author;
 
     private String subject;
 
