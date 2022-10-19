@@ -1,5 +1,6 @@
 package com.ll.ebook.member.service;
 
+import com.ll.ebook.email.EmailService;
 import com.ll.ebook.member.MemberRepository;
 import com.ll.ebook.member.exception.SignupEmailDuplicatedException;
 import com.ll.ebook.member.exception.SignupUsernameDuplicatedException;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+    private final EmailService emailService;
     public void join(String username, String password, String email, String nickname) {
 
         MemberEntity member = MemberEntity.builder()
@@ -33,5 +35,6 @@ public class MemberService {
             }
         }
 
+        emailService.sendWelcomeMessage(member.getEmail());
     }
 }
