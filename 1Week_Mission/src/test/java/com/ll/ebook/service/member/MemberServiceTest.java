@@ -1,14 +1,14 @@
 package com.ll.ebook.service.member;
 
 import com.ll.ebook.member.MemberRepository;
-import com.ll.ebook.member.exception.SignupEmailDuplicatedException;
-import com.ll.ebook.member.exception.SignupUsernameDuplicatedException;
+import com.ll.ebook.member.exception.*;
 import com.ll.ebook.member.service.MemberService;
 import com.ll.ebook.post.DataNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
@@ -25,6 +25,9 @@ public class MemberServiceTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     @DisplayName("회원가입이 가능하다.")
@@ -80,6 +83,63 @@ public class MemberServiceTest {
         });
 
         String expectedMessage = "이미 사용중인 email 입니다.";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    @DisplayName("저장된 회원의 비밀번호 변경한다.")
+    public void modifyPassword(){
+        memberService.join("user2","1234", "user2@email.com", "");
+
+        memberService.modifyPassword("user2", "1234", "5678", "5678");
+
+//        assertThat(memberRepository.findByUsername("user2").get().getPassword()).isEqualTo(passwordEncoder.encode("5678"));
+        assertTrue( passwordEncoder.matches("5678",memberRepository.findByUsername("user2").get().getPassword()));
+    }
+
+
+    @Test
+    @DisplayName("저장된 회원 비밀번호 변경 후 현재 사용 중인 비밀번호 예외 발생")
+    public void modifyPasswordAlreadyUseExceptionAfterModify(){
+
+        memberService.join("user1","1234", "user2@email.com", "");
+
+        Exception exception = assertThrows(PasswordAlreadyUseException.class, () -> {
+            memberService.modifyPassword("user1","1234", "1234", "1234");
+        });
+
+        String expectedMessage = "새로운 패스워드가 현재 사용중인 패스워드와 같습니다.";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    @DisplayName("저장된 회원 비밀번호 변경 시 확인 비밀번호가 다름 예외 발생")
+    public void modifyPasswordConfirmNotMatchExceptionAfterModify(){
+
+        memberService.join("user1","1234", "user2@email.com", "");
+
+        Exception exception = assertThrows(PasswordConfirmNotMatchException.class, () -> {
+            memberService.modifyPassword("user1","1234", "56789", "5678");
+        });
+
+        String expectedMessage = "입력한 새로운 두 비밀번호가 서로 다릅니다.";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    @DisplayName("저장된 회원 비밀번호 변경 시 확인 비밀번호가 다름 예외 발생")
+    public void modifyPasswordNotCorrectExceptionAfterModify(){
+
+        memberService.join("user1","1234", "user2@email.com", "");
+
+        Exception exception = assertThrows(PasswordNotCorrectException.class, () -> {
+            memberService.modifyPassword("user1","12342", "5678", "5678");
+        });
+
+        String expectedMessage = "패스워드가 올바르지 않습니다.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
