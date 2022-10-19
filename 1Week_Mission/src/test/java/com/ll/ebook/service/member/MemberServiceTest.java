@@ -143,4 +143,14 @@ public class MemberServiceTest {
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    @DisplayName("회원 이메일을 사용해서 아이디 찾기")
+    public void findUsernameUsingEmail(){
+        memberService.join("user1","1234", "user2@email.com", "");
+
+        String username = memberService.findUsernameByEmail("user2@email.com");
+
+        assertThat(username).isEqualTo("user1");
+    }
 }
