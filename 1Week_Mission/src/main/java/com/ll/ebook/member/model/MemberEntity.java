@@ -8,6 +8,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Table;
@@ -22,11 +23,13 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class MemberEntity extends BaseEntity {
 
+    @Column(unique = true)
     private String username;
 
     private String password;
 
     private String nickname;
 
+    @Column(unique = true)
     private String email;
 }
