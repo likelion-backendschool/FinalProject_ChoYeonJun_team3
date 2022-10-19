@@ -25,4 +25,18 @@ public class MemberServiceTest {
     public void join() {
         memberService.join("user2","1234", "user2@email.com", "");
     }
+
+    @Test
+    @DisplayName("중복된 아이디 예외 발생")
+    public void joinUsernameDuplicatedException(){
+        memberService.join("user2","1234", "user2@email.com", "");
+
+        Exception exception = assertThrows(SignupUsernameDuplicatedException.class, () -> {
+            memberService.join("user2","1234", "user1@email.com", "");
+        });
+
+        String expectedMessage = "이미 사용중인 username 입니다.";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 }
