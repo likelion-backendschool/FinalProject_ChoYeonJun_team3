@@ -1,7 +1,7 @@
 package com.ll.ebook.post.model;
 
 import com.ll.ebook.post.model.entity.PostEntity;
-import com.ll.ebook.user.model.UserEntity;
+import com.ll.ebook.member.model.MemberEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ public class PostDto {
 
     private LocalDateTime modifiedAt;
 
-    private UserEntity author;
+    private MemberEntity author;
 
     private String subject;
 

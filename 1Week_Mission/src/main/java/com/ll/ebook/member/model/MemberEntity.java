@@ -1,4 +1,4 @@
-package com.ll.ebook.user.model;
+package com.ll.ebook.member.model;
 
 import com.ll.ebook.base.entity.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @SuperBuilder
 @ToString(callSuper = true)
 @Table(name = "users")
-public class UserEntity extends BaseEntity {
+public class MemberEntity extends BaseEntity {
 
     private String username;
 

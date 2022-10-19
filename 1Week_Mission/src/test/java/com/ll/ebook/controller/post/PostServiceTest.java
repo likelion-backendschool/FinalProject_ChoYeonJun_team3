@@ -3,15 +3,14 @@ package com.ll.ebook.controller.post;
 import com.ll.ebook.post.DataNotFoundException;
 import com.ll.ebook.post.PostService;
 import com.ll.ebook.post.model.entity.PostEntity;
-import com.ll.ebook.user.UserRepository;
-import com.ll.ebook.user.model.UserEntity;
+import com.ll.ebook.member.MemberRepository;
+import com.ll.ebook.member.model.MemberEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.ResultActions;
 
 import javax.transaction.Transactional;
 
@@ -39,7 +38,7 @@ public class PostServiceTest {
     private PostService postService;
 
     @Autowired
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
 
     private final String username = "username";
 
@@ -60,7 +59,7 @@ public class PostServiceTest {
      */
     @Test
     void saveUser(){
-        userRepository.save(UserEntity.builder()
+        memberRepository.save(MemberEntity.builder()
                 .email("abc@gmail.com")
                 .nickname("nickname")
                 .username(username)
@@ -86,7 +85,7 @@ public class PostServiceTest {
     void modify() throws Exception {
         // WHEN
 //        postService.write("username", "subject", "content");
-        PostEntity post = postService.findByUserEntity(userRepository.findByUsername(username).get());
+        PostEntity post = postService.findByUserEntity(memberRepository.findByUsername(username).get());
         postService.modify(post.getId(), "new subject", "new content", "new keywords");
 
         //then
@@ -101,7 +100,7 @@ public class PostServiceTest {
     void delete() throws Exception {
         // when
 //        postService.write("username", "subject", "content");
-        PostEntity postEntity = postService.findByUserEntity(userRepository.findByUsername(username).get());
+        PostEntity postEntity = postService.findByUserEntity(memberRepository.findByUsername(username).get());
         postService.delete(postEntity.getId());
 
         // then
