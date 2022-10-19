@@ -1,9 +1,9 @@
 package com.ll.ebook.member;
 
-import com.ll.ebook.member.exception.SignupEmailDuplicatedException;
-import com.ll.ebook.member.exception.SignupUsernameDuplicatedException;
+import com.ll.ebook.member.exception.*;
 import com.ll.ebook.member.form.MemberJoinForm;
 import com.ll.ebook.member.form.MemberModifyInfoForm;
+import com.ll.ebook.member.form.MemberModifyPasswordForm;
 import com.ll.ebook.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -68,6 +68,27 @@ public class MemberController {
             memberService.modify(principal.getName(), memberModifyInfoForm.getEmail(), memberModifyInfoForm.getNickname());
         }catch (SignupEmailDuplicatedException e) {
             bindingResult.reject("signupEmailDuplicated", e.getMessage());
+            return ;
+        }
+    }
+
+    @GetMapping("/modifyPassword")
+    public void getModifyPassword(MemberModifyPasswordForm memberModifyPasswordForm){
+
+    }
+
+    @PostMapping("/modifyPassword")
+    public void modifyPassword(Principal principal, @Valid MemberModifyPasswordForm memberModifyPasswordForm, BindingResult bindingResult){
+        try{
+            memberService.modifyPassword(principal.getName(), memberModifyPasswordForm.getOldPassword(), memberModifyPasswordForm.getPassword(), memberModifyPasswordForm.getPasswordConfirm());
+        }catch (PasswordAlreadyUseException e){
+            bindingResult.reject("PasswordAlreadyUseException", e.getMessage());
+            return ;
+        }catch (PasswordConfirmNotMatchException e){
+            bindingResult.reject("PasswordConfirmNotMatchException", e.getMessage());
+            return ;
+        }catch (PasswordNotCorrectException e){
+            bindingResult.reject("PasswordNotCorrectException", e.getMessage());
             return ;
         }
     }

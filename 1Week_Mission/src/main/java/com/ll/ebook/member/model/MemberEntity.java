@@ -23,6 +23,7 @@ public class MemberEntity extends BaseEntity {
     @Column(unique = true)
     private String username;
 
+    @Setter
     private String password;
 
     @Setter
