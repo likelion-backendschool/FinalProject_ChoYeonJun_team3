@@ -1,12 +1,14 @@
 package com.ll.ebook.member;
 
 import com.ll.ebook.member.exception.*;
+import com.ll.ebook.member.form.MemberFindUsername;
 import com.ll.ebook.member.form.MemberJoinForm;
 import com.ll.ebook.member.form.MemberModifyInfoForm;
 import com.ll.ebook.member.form.MemberModifyPasswordForm;
 import com.ll.ebook.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -96,5 +98,17 @@ public class MemberController {
     @GetMapping("/login")
     public void login() {
         return ;
+    }
+
+    @GetMapping("/findUsername")
+    public void getFindUsername(MemberFindUsername memberFindUsername){
+
+    }
+
+    @PostMapping("/findUsername")
+    public void findUsername(@Valid MemberFindUsername memberFindUsername, Model model){
+        String username = memberService.findUsernameByEmail(memberFindUsername.getEmail());
+
+        model.addAttribute("username", username);
     }
 }
