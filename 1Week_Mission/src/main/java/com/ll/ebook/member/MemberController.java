@@ -3,6 +3,7 @@ package com.ll.ebook.member;
 import com.ll.ebook.member.exception.SignupEmailDuplicatedException;
 import com.ll.ebook.member.exception.SignupUsernameDuplicatedException;
 import com.ll.ebook.member.form.MemberJoinForm;
+import com.ll.ebook.member.form.MemberModifyInfoForm;
 import com.ll.ebook.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 /**
@@ -51,6 +53,21 @@ public class MemberController {
             return ;
         } catch (SignupUsernameDuplicatedException e) {
             bindingResult.reject("signupUsernameDuplicated", e.getMessage());
+            return ;
+        }
+    }
+
+    @GetMapping("/modify")
+    public void getModify(MemberModifyInfoForm memberModifyInfoForm){
+
+    }
+
+    @PostMapping("/modify")
+    public void modify(Principal principal, @Valid MemberModifyInfoForm memberModifyInfoForm, BindingResult bindingResult){
+        try{
+            memberService.modify(principal.getName(), memberModifyInfoForm.getEmail(), memberModifyInfoForm.getNickname());
+        }catch (SignupEmailDuplicatedException e) {
+            bindingResult.reject("signupEmailDuplicated", e.getMessage());
             return ;
         }
     }
