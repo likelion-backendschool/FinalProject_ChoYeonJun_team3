@@ -1,5 +1,6 @@
 package com.ll.ebook.service.member;
 
+import com.ll.ebook.member.exception.SignupEmailDuplicatedException;
 import com.ll.ebook.member.exception.SignupUsernameDuplicatedException;
 import com.ll.ebook.member.service.MemberService;
 import com.ll.ebook.post.DataNotFoundException;
@@ -36,6 +37,20 @@ public class MemberServiceTest {
         });
 
         String expectedMessage = "이미 사용중인 username 입니다.";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    @DisplayName("중복된 이메일 예외 발생")
+    public void joinEmailDuplicatedException(){
+        memberService.join("user2","1234", "user2@email.com", "");
+
+        Exception exception = assertThrows(SignupEmailDuplicatedException.class, () -> {
+            memberService.join("user1","1234", "user2@email.com", "");
+        });
+
+        String expectedMessage = "이미 사용중인 email 입니다.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
