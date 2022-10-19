@@ -92,4 +92,9 @@ public class MemberController {
             return ;
         }
     }
+
+    @GetMapping("/login")
+    public void login() {
+        return ;
+    }
 }
