@@ -1,10 +1,7 @@
 package com.ll.ebook.member.model;
 
 import com.ll.ebook.base.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -28,8 +25,11 @@ public class MemberEntity extends BaseEntity {
 
     private String password;
 
+    @Setter
     private String nickname;
 
+    @Setter
     @Column(unique = true)
     private String email;
+
 }
