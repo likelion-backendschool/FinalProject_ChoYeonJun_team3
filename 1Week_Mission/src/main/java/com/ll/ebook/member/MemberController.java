@@ -44,6 +44,14 @@ public class MemberController {
             return;
 
         }
+        try{
             memberService.join(memberJoinForm.getUsername(), memberJoinForm.getPassword(), memberJoinForm.getEmail(), memberJoinForm.getNickname());
+        }catch (SignupEmailDuplicatedException e) {
+            bindingResult.reject("signupEmailDuplicated", e.getMessage());
+            return ;
+        } catch (SignupUsernameDuplicatedException e) {
+            bindingResult.reject("signupUsernameDuplicated", e.getMessage());
+            return ;
+        }
     }
 }

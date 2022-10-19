@@ -23,7 +23,15 @@ public class MemberService {
                 .email(email)
                 .nickname(nickname)
                 .build();
-        memberRepository.save(member);
+        try{
+            memberRepository.save(member);
+        }catch (DataIntegrityViolationException e) {
+            if (memberRepository.existsByUsername(username)) {
+                throw new SignupUsernameDuplicatedException("이미 사용중인 username 입니다.");
+            } else {
+                throw new SignupEmailDuplicatedException("이미 사용중인 email 입니다.");
+            }
+        }
 
     }
 }
