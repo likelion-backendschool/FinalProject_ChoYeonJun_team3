@@ -16,6 +16,6 @@ public class EmailService {
         message.setTo(email);
         message.setSubject("멋북스에 오신걸 환영합니다!");
         message.setText("회원가입이 완료되었습니다!");
-        emailSender.send(message);
+//        emailSender.send(message);
     }
 }

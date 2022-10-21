@@ -30,7 +30,7 @@ public class PostController {
     }
 
     @PostMapping("/write")
-    public void write(Principal principal, Model model, @Valid PostWriteForm postWriteForm, BindingResult bindingResult){
+    public void write(Principal principal, Model model, @Valid PostWriteForm postWriteForm ){
         postService.write(principal.getName(), postWriteForm.getSubject(), postWriteForm.getContent(), postWriteForm.getKeywords());
     }
 

@@ -3,15 +3,12 @@ package com.ll.ebook.service.member;
 import com.ll.ebook.member.MemberRepository;
 import com.ll.ebook.member.exception.*;
 import com.ll.ebook.member.service.MemberService;
-import com.ll.ebook.post.DataNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
-
-import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
