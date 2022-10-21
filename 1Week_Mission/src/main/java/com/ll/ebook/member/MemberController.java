@@ -34,6 +34,8 @@ public class MemberController {
 
     /**
      * 회원가입
+     *
+     * - 회원가입시 축하메일을 발송한다.
      */
     @GetMapping("/join")
     public void getJoin(MemberJoinForm memberJoinForm){
@@ -100,6 +102,12 @@ public class MemberController {
         return ;
     }
 
+    /**
+     * 아이디 찾기
+     *
+     * - 가입 시 입력한 이메일 주소를 입력하여 아이디를 찾을 수 있다.
+     * @param memberFindUsername
+     */
     @GetMapping("/findUsername")
     public void getFindUsername(MemberFindUsername memberFindUsername){
 

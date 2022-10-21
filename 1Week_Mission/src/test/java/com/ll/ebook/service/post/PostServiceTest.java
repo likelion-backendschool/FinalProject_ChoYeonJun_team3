@@ -54,8 +54,6 @@ public class PostServiceTest {
     /**
      * 임시 사용자 저장 테스트 코드
      * post의 author 로 사용하기 위함
-     *
-     * User 작업 들어가면서 수정 예정
      */
     @Test
     void saveUser(){
