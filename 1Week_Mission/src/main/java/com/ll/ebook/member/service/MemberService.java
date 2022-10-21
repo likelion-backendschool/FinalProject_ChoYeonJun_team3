@@ -4,7 +4,7 @@ import com.ll.ebook.email.EmailService;
 import com.ll.ebook.member.MemberRepository;
 import com.ll.ebook.member.exception.*;
 import com.ll.ebook.member.model.MemberEntity;
-import com.ll.ebook.post.DataNotFoundException;
+import com.ll.ebook.base.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -73,11 +73,11 @@ public class MemberService {
     public void modifyPassword(String username, String oldPassword, String password, String passwordConfirm) {
         MemberEntity member = findByUsername(username);
         String currPassword = getCurrPassword(username);
+
         if (!isSamePassword(password, passwordConfirm))
             throw new PasswordConfirmNotMatchException("입력한 새로운 두 비밀번호가 서로 다릅니다.");
         if(!passwordEncoder.matches(oldPassword, currPassword))
             throw new PasswordNotCorrectException("패스워드가 올바르지 않습니다.");
-
         if(isSamePassword(password, oldPassword))
             throw new PasswordAlreadyUseException("새로운 패스워드가 현재 사용중인 패스워드와 같습니다.");
 

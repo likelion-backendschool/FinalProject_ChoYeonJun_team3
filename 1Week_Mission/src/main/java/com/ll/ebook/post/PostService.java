@@ -1,5 +1,6 @@
 package com.ll.ebook.post;
 
+import com.ll.ebook.base.DataNotFoundException;
 import com.ll.ebook.hashtag.HashTagService;
 import com.ll.ebook.post.model.PostDto;
 import com.ll.ebook.post.model.entity.PostEntity;

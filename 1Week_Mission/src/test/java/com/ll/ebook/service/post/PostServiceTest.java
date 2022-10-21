@@ -1,6 +1,6 @@
 package com.ll.ebook.service.post;
 
-import com.ll.ebook.post.DataNotFoundException;
+import com.ll.ebook.base.DataNotFoundException;
 import com.ll.ebook.post.PostService;
 import com.ll.ebook.post.model.entity.PostEntity;
 import com.ll.ebook.member.MemberRepository;

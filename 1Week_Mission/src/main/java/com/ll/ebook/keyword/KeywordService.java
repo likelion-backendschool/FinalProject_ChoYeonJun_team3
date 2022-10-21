@@ -1,7 +1,7 @@
 package com.ll.ebook.keyword;
 
 import com.ll.ebook.keyword.model.KeywordEntity;
-import com.ll.ebook.post.DataNotFoundException;
+import com.ll.ebook.base.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

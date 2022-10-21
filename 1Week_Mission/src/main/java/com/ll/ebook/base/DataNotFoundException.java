@@ -1,4 +1,4 @@
-package com.ll.ebook.post;
+package com.ll.ebook.base;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
