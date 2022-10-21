@@ -61,6 +61,10 @@ public class MemberController {
         }
     }
 
+    /**
+     * 회원 정보 수정
+     * @param memberModifyInfoForm
+     */
     @GetMapping("/modify")
     public void getModify(MemberModifyInfoForm memberModifyInfoForm){
 
@@ -75,6 +79,11 @@ public class MemberController {
             return ;
         }
     }
+
+    /**
+     * 비밀번호 변경
+     * @param memberModifyPasswordForm
+     */
 
     @GetMapping("/modifyPassword")
     public void getModifyPassword(MemberModifyPasswordForm memberModifyPasswordForm){
