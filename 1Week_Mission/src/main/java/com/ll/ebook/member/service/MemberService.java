@@ -52,24 +52,6 @@ public class MemberService {
         }
     }
 
-    private MemberEntity findByUsername(String username){
-        return memberRepository.findByUsername(username).orElseThrow(() -> new DataNotFoundException("member %s  not found".formatted(username)));
-    }
-
-    public String getCurrPassword(String username){
-        MemberEntity member = findByUsername(username);
-
-        return member.getPassword();
-    }
-
-    public String encodePassword(String password){
-        return passwordEncoder.encode(password);
-    }
-
-    public boolean isSamePassword(String password1, String password2){
-        return password1.equals(password2);
-    }
-
     public void modifyPassword(String username, String oldPassword, String password, String passwordConfirm) {
         MemberEntity member = findByUsername(username);
         String currPassword = getCurrPassword(username);
@@ -93,5 +75,22 @@ public class MemberService {
 
     private MemberEntity findByEmail(String email){
         return memberRepository.findByEmail(email).orElseThrow(() -> new DataNotFoundException("email %s not found".formatted(email)));
+    }
+    private MemberEntity findByUsername(String username){
+        return memberRepository.findByUsername(username).orElseThrow(() -> new DataNotFoundException("member %s  not found".formatted(username)));
+    }
+
+    public String getCurrPassword(String username){
+        MemberEntity member = findByUsername(username);
+
+        return member.getPassword();
+    }
+
+    public String encodePassword(String password){
+        return passwordEncoder.encode(password);
+    }
+
+    public boolean isSamePassword(String password1, String password2){
+        return password1.equals(password2);
     }
 }
